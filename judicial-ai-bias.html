@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>انحياز الذكاء الاصطناعي في التنبؤ القضائي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0B1829;
+      --navy2:   #112240;
+      --steel:   #1B3A6B;
+      --gold:    #C9A84C;
+      --gold2:   #E8C76A;
+      --ash:     #8899AA;
+      --light:   #D6E4F0;
+      --white:   #F5F9FF;
+      --red:     #C0392B;
+      --green:   #1A7A4A;
+      --accent:  #2E86AB;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(11,24,41,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.2);
+      padding: 1rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 900; font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: -.3px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--light); font-size: .88rem; text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 40%, rgba(27,58,107,.55) 0%, transparent 70%),
+        linear-gradient(180deg, var(--navy) 0%, #0D2240 100%);
+    }
+    /* Subtle grid */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 860px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .6rem;
+      border: 1px solid rgba(201,168,76,.4);
+      border-radius: 2px;
+      padding: .35rem 1rem;
+      font-size: .78rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+    }
+    .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+    h1 {
+      font-family: 'Cairo', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--gold);
+      border-bottom: 2px solid rgba(201,168,76,.4);
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--ash);
+      max-width: 640px; margin: 0 auto 3rem;
+    }
+    .hero-stats {
+      display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Cairo', sans-serif;
+      font-size: 2.4rem; font-weight: 900;
+      color: var(--gold2);
+      display: block;
+    }
+    .stat-label { font-size: .8rem; color: var(--ash); letter-spacing: .5px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .72rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .8rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: rgba(201,168,76,.25);
+    }
+    h2 {
+      font-family: 'Cairo', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700; margin-bottom: 1.2rem;
+    }
+    .lead { font-size: 1.05rem; color: var(--light); max-width: 700px; }
+
+    /* ── WHAT IS ── */
+    .what-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      align-items: center; margin-top: 3rem;
+    }
+    .what-text p { color: #aabccc; margin-bottom: 1rem; line-height: 1.9; }
+    .definition-box {
+      border-right: 3px solid var(--gold);
+      padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+      background: rgba(27,58,107,.25);
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 2rem;
+      font-size: 1.05rem; font-style: italic; color: var(--light);
+    }
+
+    /* ── BIAS VISUAL ── */
+    .bias-section { background: var(--navy2); }
+    .bias-intro { max-width: 700px; margin-bottom: 3rem; }
+    .bias-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .bias-card {
+      background: rgba(11,24,41,.6);
+      border: 1px solid rgba(201,168,76,.15);
+      border-top: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 1.8rem;
+      transition: transform .25s, border-color .25s;
+    }
+    .bias-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .bias-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .bias-card h3 {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--gold2); margin-bottom: .7rem;
+    }
+    .bias-card p { font-size: .9rem; color: #9aabbf; line-height: 1.8; }
+
+    /* ── BAR CHART ── */
+    .chart-wrap {
+      background: rgba(11,24,41,.5);
+      border: 1px solid rgba(201,168,76,.12);
+      border-radius: 8px; padding: 2rem;
+      margin-top: 2rem;
+    }
+    .chart-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--light); margin-bottom: 1.5rem;
+    }
+    .chart-subtitle { font-size: .8rem; color: var(--ash); margin-bottom: 2rem; margin-top: -.8rem; }
+    .bar-group { margin-bottom: 1.4rem; }
+    .bar-label {
+      display: flex; justify-content: space-between;
+      font-size: .82rem; color: var(--light); margin-bottom: .4rem;
+    }
+    .bar-label span:last-child { color: var(--gold); font-weight: 700; }
+    .bar-track {
+      height: 10px; background: rgba(255,255,255,.07);
+      border-radius: 3px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 3px;
+      animation: growBar 1.2s ease forwards;
+      transform-origin: right;
+    }
+    @keyframes growBar { from { width: 0 } }
+    .bar-fill.high { background: linear-gradient(90deg, #C0392B, #E74C3C); }
+    .bar-fill.mid  { background: linear-gradient(90deg, #E67E22, #F39C12); }
+    .bar-fill.low  { background: linear-gradient(90deg, #1A7A4A, #27AE60); }
+
+    /* ── COMPAS CASE ── */
+    .case-section { background: var(--navy); }
+    .case-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      margin-top: 3rem;
+    }
+    .case-panel {
+      border-radius: 6px; padding: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .case-panel.accused {
+      background: rgba(192,57,43,.1);
+      border: 1px solid rgba(192,57,43,.3);
+    }
+    .case-panel.reality {
+      background: rgba(26,122,74,.1);
+      border: 1px solid rgba(26,122,74,.3);
+    }
+    .case-panel h3 {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem;
+    }
+    .case-panel.accused h3 { color: #E74C3C; }
+    .case-panel.reality h3 { color: #2ECC71; }
+    .score-display {
+      font-family: 'Cairo', sans-serif;
+      font-size: 3.5rem; font-weight: 900;
+      margin: 1rem 0;
+    }
+    .accused .score-display { color: #E74C3C; }
+    .reality .score-display { color: #2ECC71; }
+    .score-label { font-size: .8rem; color: var(--ash); margin-bottom: 1rem; }
+    .case-detail { font-size: .88rem; color: #9aabbf; line-height: 1.9; }
+
+    /* ── IMPACT ── */
+    .impact-section { background: var(--navy2); }
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 2rem;
+      margin-top: 3rem;
+    }
+    .impact-item {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.5rem;
+      background: rgba(11,24,41,.4);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 6px;
+    }
+    .impact-icon {
+      font-size: 1.6rem; min-width: 2.5rem; text-align: center;
+      margin-top: .2rem;
+    }
+    .impact-item h4 {
+      font-family: 'Cairo', sans-serif;
+      font-size: .95rem; font-weight: 700;
+      color: var(--gold2); margin-bottom: .4rem;
+    }
+    .impact-item p { font-size: .88rem; color: #9aabbf; line-height: 1.8; }
+
+    /* ── RECOMMENDATIONS ── */
+    .rec-section { background: var(--navy); }
+    .rec-list { list-style: none; margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .rec-list li {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.4rem 1.8rem;
+      border-right: 4px solid var(--gold);
+      background: rgba(27,58,107,.2);
+      border-radius: 0 6px 6px 0;
+    }
+    .rec-num {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.4rem; font-weight: 900;
+      color: rgba(201,168,76,.3); min-width: 2rem; line-height: 1;
+    }
+    .rec-text h4 {
+      font-family: 'Cairo', sans-serif;
+      font-size: .95rem; font-weight: 700;
+      color: var(--gold2); margin-bottom: .3rem;
+    }
+    .rec-text p { font-size: .88rem; color: #9aabbf; line-height: 1.7; }
+
+    /* ── CONCLUSION ── */
+    .conclusion {
+      background: linear-gradient(135deg, #0D1B2A 0%, #1B3A6B 50%, #0D1B2A 100%);
+      text-align: center; padding: 8rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .conclusion::before {
+      content: '⚖';
+      position: absolute; font-size: 30rem; opacity: .02;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none; line-height: 1;
+    }
+    .conclusion h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--white); margin-bottom: 1.2rem;
+    }
+    .conclusion p { color: #9aabbf; max-width: 620px; margin: 0 auto 2.5rem; font-size: 1rem; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700; font-size: .95rem;
+      padding: .85rem 2.5rem;
+      border-radius: 3px; text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .cta-btn:hover { background: var(--gold2); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060F1A;
+      padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(201,168,76,.1);
+      font-size: .8rem; color: var(--ash);
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+      .what-grid, .case-grid, .impact-grid, .bias-cards { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚖ العدالة الخوارزمية</div>
+  <ul class="nav-links">
+    <li><a href="#what">ما هو الانحياز</a></li>
+    <li><a href="#types">أنواعه</a></li>
+    <li><a href="#compas">حالة COMPAS</a></li>
+    <li><a href="#impact">التأثيرات</a></li>
+    <li><a href="#recs">التوصيات</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span></span>
+      بحث وتحليل · الذكاء الاصطناعي والقضاء
+    </div>
+    <h1>
+      حين تُخطئ الخوارزمية<br />
+      يدفع <em>البشر</em> الثمن
+    </h1>
+    <p class="hero-sub">
+      انحياز أنظمة الذكاء الاصطناعي في التنبؤ القضائي يُقوِّض مبادئ العدالة،
+      ويُعيد إنتاج التمييز بلغة الأرقام والكود.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">77%</span>
+        <span class="stat-label">خطأ في تصنيف أبيض البشر كمخاطرة عالية</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">×2</span>
+        <span class="stat-label">تضاعف احتمال الخطأ ضد الأقليات</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">+46</span>
+        <span class="stat-label">دولة تستخدم أدوات تنبؤ قضائي</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT IS -->
+<section id="what">
+  <div class="container">
+    <div class="what-grid reveal">
+      <div class="what-text">
+        <div class="section-label">المفهوم</div>
+        <h2>ما هو التنبؤ القضائي الخوارزمي؟</h2>
+        <div class="definition-box">
+          "استخدام خوارزميات الذكاء الاصطناعي لتقييم احتمالية ارتكاب الفرد جريمة مستقبلية أو تكرارها، لمساعدة القضاة في قرارات الإفراج والسجن ومدة العقوبة."
+        </div>
+        <p>تعتمد المحاكم في دول عديدة على أنظمة آلية مثل COMPAS وPSA وLSI-R لتقييم "درجة خطورة" المتهمين. تُغذَّى هذه الأنظمة ببيانات تاريخية — مكان السكن، السجل الجنائي، الوضع الاجتماعي — ثم تُنتج درجة عددية تُحدد مصير إنسان.</p>
+        <p>المشكلة الجوهرية: هذه البيانات تحمل في طياتها تحيزات قرون من التمييز المنهجي، فتُعيد الخوارزمية إنتاجها بكفاءة رياضية مُقنِّعة تحت غطاء الموضوعية.</p>
+      </div>
+      <div class="what-visual reveal">
+        <!-- Mini diagram -->
+        <div style="background:rgba(27,58,107,.2);border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:2rem;">
+          <div style="text-align:center;margin-bottom:1.5rem;font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--ash);letter-spacing:2px;">كيف تعمل دورة الانحياز</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.3);border-radius:6px;padding:1rem;text-align:center;">
+              <div style="font-size:1.2rem;margin-bottom:.3rem;">📊</div>
+              <div style="font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;color:#E74C3C;">بيانات تاريخية منحازة</div>
+              <div style="font-size:.75rem;color:var(--ash);margin-top:.2rem;">ممارسات شرطية غير متساوية</div>
+            </div>
+            <div style="text-align:center;padding:.5rem;color:var(--gold);font-size:1.5rem;">↓</div>
+            <div style="background:rgba(46,134,171,.15);border:1px solid rgba(46,134,171,.3);border-radius:6px;padding:1rem;text-align:center;">
+              <div style="font-size:1.2rem;margin-bottom:.3rem;">🤖</div>
+              <div style="font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;color:#2E86AB;">خوارزمية التعلم الآلي</div>
+              <div style="font-size:.75rem;color:var(--ash);margin-top:.2rem;">تتعلم الأنماط من التاريخ</div>
+            </div>
+            <div style="text-align:center;padding:.5rem;color:var(--gold);font-size:1.5rem;">↓</div>
+            <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:1rem;text-align:center;">
+              <div style="font-size:1.2rem;margin-bottom:.3rem;">🔢</div>
+              <div style="font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;color:var(--gold2);">درجة الخطورة التنبؤية</div>
+              <div style="font-size:.75rem;color:var(--ash);margin-top:.2rem;">1 – 10 تحدد مصير المتهم</div>
+            </div>
+            <div style="text-align:center;padding:.5rem;color:var(--gold);font-size:1.5rem;">↓</div>
+            <div style="background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.25);border-radius:6px;padding:1rem;text-align:center;">
+              <div style="font-size:1.2rem;margin-bottom:.3rem;">⚖️</div>
+              <div style="font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;color:#E74C3C;">قرار قضائي منحاز</div>
+              <div style="font-size:.75rem;color:var(--ash);margin-top:.2rem;">يُعزز التمييز التاريخي</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIAS TYPES -->
+<section id="types" class="bias-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">التصنيف</div>
+      <h2>أنواع الانحياز الخوارزمي في القضاء</h2>
+      <p class="lead">الانحياز لا يصدر من نقطة واحدة — بل يتراكم عبر مراحل متعددة من دورة حياة نظام الذكاء الاصطناعي.</p>
+    </div>
+    <div class="bias-cards reveal">
+      <div class="bias-card">
+        <div class="bias-card-icon">🗄️</div>
+        <h3>انحياز البيانات التاريخية</h3>
+        <p>البيانات التدريبية تعكس تفاوتاً تاريخياً في تطبيق القانون: مناطق تخضع لمراقبة مكثفة، وتحيز ضمني في قرارات الاعتقال السابقة، مما يجعل الخوارزمية تتعلم التمييز كـ"حقيقة إحصائية".</p>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-icon">🔧</div>
+        <h3>انحياز التصميم والمتغيرات</h3>
+        <p>اختيار المتغيرات كمكان السكن والمستوى التعليمي ووضع الأسرة تمثل بدائل مبطنة للعرق والطبقة الاجتماعية، وإن لم تُذكر صراحةً في الخوارزمية.</p>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-icon">📏</div>
+        <h3>انحياز معيار التقييم</h3>
+        <p>تعريف "الإعادة للجريمة" يعتمد على الاعتقال لا الإدانة، مما يُضخّم الظهور الإحصائي للمجموعات الأكثر خضوعاً للمراقبة الأمنية.</p>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-icon">📦</div>
+        <h3>انحياز صندوق الأسود</h3>
+        <p>غموض المنطق الداخلي يحرم المتهمين من حق الطعن في الأسباب. القضاة أنفسهم لا يعلمون كيف وصلت الخوارزمية إلى درجة الخطورة.</p>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-icon">🔄</div>
+        <h3>الانحياز التأكيدي الحلقي</h3>
+        <p>القرارات المبنية على تنبؤات خاطئة تُولِّد بيانات جديدة تُدرَّب عليها الجيل التالي من الخوارزميات، مكرِّسةً دوامةً من الانحياز المتراكم.</p>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-icon">⚖️</div>
+        <h3>انحياز الاستخدام القضائي</h3>
+        <p>ميل القضاة لتبني توصيات الخوارزمية أكثر من رفضها (أتمتة التحيز)، خاصة حين تتسق النتيجة مع انحيازهم اللاواعي المسبق.</p>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-wrap reveal">
+      <div class="chart-title">معدلات الخطأ في التنبؤ عبر المجموعات — نظام COMPAS</div>
+      <div class="chart-subtitle">دراسة ProPublica 2016 على 10,000 متهم في فلوريدا</div>
+
+      <div class="bar-group">
+        <div class="bar-label">
+          <span>تصنيف بيض البشر كمخاطرة عالية (خطأ)</span>
+          <span>23.5%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill low" style="width:23.5%"></div></div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">
+          <span>تصنيف السود كمخاطرة عالية (خطأ)</span>
+          <span>44.9%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill high" style="width:44.9%"></div></div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">
+          <span>تصنيف أشخاص بيض بمخاطرة منخفضة رغم جريمة لاحقة</span>
+          <span>47.7%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:47.7%"></div></div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">
+          <span>تصنيف أشخاص سود بمخاطرة منخفضة رغم جريمة لاحقة</span>
+          <span>28.0%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill low" style="width:28%"></div></div>
+      </div>
+      <p style="font-size:.75rem;color:var(--ash);margin-top:1rem;">المصدر: Angwin et al., ProPublica — "Machine Bias" (2016)</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPAS CASE -->
+<section id="compas" class="case-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">دراسة حالة</div>
+      <h2>قضية COMPAS: حين قرأت الخوارزمية الجلد لا الجريمة</h2>
+      <p class="lead">المقارنة الأكثر توثيقاً للانحياز الخوارزمي: متهمان، جريمتان متشابهتان، مصيران مختلفان جذرياً.</p>
+    </div>
+    <div class="case-grid reveal">
+      <div class="case-panel accused">
+        <h3>⚠ برنسيل — درجة الخطورة</h3>
+        <div class="score-display">10</div>
+        <div class="score-label">من 10 — أعلى درجة خطورة</div>
+        <div class="case-detail">
+          رجل أسود البشرة، اتهم بسرقة دراجات هوائية. صنّفته COMPAS بأعلى درجة خطورة ممكنة.
+          <br/><br/>
+          <strong style="color:#E74C3C;">النتيجة الفعلية:</strong> لم يُدَن بأي جريمة عنيفة لاحقة على مدى السنوات التالية.
+          <br/><br/>
+          خسر عاماً في الاحتجاز جزئياً بسبب تقرير الخوارزمية.
+        </div>
+      </div>
+      <div class="case-panel reality">
+        <h3>✓ باولو — درجة الخطورة</h3>
+        <div class="score-display">3</div>
+        <div class="score-label">من 10 — خطورة منخفضة</div>
+        <div class="case-detail">
+          رجل أبيض البشرة، اتهم بحيازة أسلحة مسروقة. صنّفته COMPAS بخطورة منخفضة نسبياً.
+          <br/><br/>
+          <strong style="color:#E74C3C;">النتيجة الفعلية:</strong> أُدين لاحقاً بجرائم أشد خطورة، وأُودع السجن.
+          <br/><br/>
+          غادر أقل مما كان ينبغي، لأن الخوارزمية أخطأت في تقييمه.
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:2rem;padding:1.5rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:6px;">
+      <p style="color:var(--light);font-size:.92rem;line-height:1.9;">
+        <strong style="color:var(--gold2);">الخلاصة القانونية:</strong> في قضية <em>State v. Loomis</em> (2016)، أيّدت المحكمة العليا في ويسكونسن استخدام COMPAS، لكنها اشترطت ألّا تكون النتيجة السبب الوحيد للحكم. هذا الموقف القانوني الملتبس يكشف عن فجوة حقيقية بين السرعة التقنية وبطء التكيّف القانوني.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact" class="impact-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">التداعيات</div>
+      <h2>تأثيرات الانحياز على نزاهة المنظومة القضائية</h2>
+    </div>
+    <div class="impact-grid reveal">
+      <div class="impact-item">
+        <div class="impact-icon">⚖️</div>
+        <div>
+          <h4>انتهاك مبدأ المساواة أمام القانون</h4>
+          <p>التحيز الخوارزمي يُنتج أحكاماً متفاوتة لجرائم متشابهة بحسب العرق أو المنطقة الجغرافية، مما يُناقض صميم مبدأ المساواة في المعاملة القانونية.</p>
+        </div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-icon">🔒</div>
+        <div>
+          <h4>تقييد حق الدفاع والطعن</h4>
+          <p>غموض الخوارزمية يحرم المحامين من فهم كيفية احتساب درجة الخطورة، ما يجعل الطعن فيها شبه مستحيل أمام المحكمة.</p>
+        </div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-icon">🔁</div>
+        <div>
+          <h4>ترسيخ الانحياز الاجتماعي رقمياً</h4>
+          <p>كل حكم خاطئ يُولّد بيانات تُدرَّب عليها نسخة مستقبلية من الخوارزمية، محوِّلاً الظلم التاريخي إلى نمط رياضي "محايد" يصعب الطعن فيه.</p>
+        </div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-icon">🏛️</div>
+        <div>
+          <h4>تآكل الثقة في العدالة</h4>
+          <p>حين يشعر المتهمون أن مصيرهم قرره كود برمجي لا يفهمونه ولا يملكون مواجهته، تتآكل الشرعية الاجتماعية للمنظومة القضائية برمتها.</p>
+        </div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-icon">🌍</div>
+        <div>
+          <h4>التوسع العالمي غير المنضبط</h4>
+          <p>أنظمة طُوِّرت في سياق اجتماعي بعينه تُصدَّر إلى دول مختلفة كلياً دون تكييف للسياق المحلي، مضاعِفةً تداعيات الانحياز.</p>
+        </div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-icon">👨‍⚖️</div>
+        <div>
+          <h4>إحلال الرقم محل التقدير القضائي</h4>
+          <p>الميل المتزايد للاستناد إلى الدرجة الخوارزمية يُضعف الحكمة القضائية الإنسانية التي تستوعب الفروق الدقيقة في ملابسات كل قضية.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section id="recs" class="rec-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">المخرج</div>
+      <h2>نحو ذكاء اصطناعي قضائي عادل</h2>
+      <p class="lead">الحل ليس رفض التقنية، بل حوكمتها بصرامة تضمن خضوعها لقيم العدالة لا تحكّمها فيها.</p>
+    </div>
+    <ul class="rec-list reveal">
+      <li>
+        <div class="rec-num">01</div>
+        <div class="rec-text">
+          <h4>الشفافية الإلزامية والقابلية للتفسير</h4>
+          <p>يجب أن تكون كل خوارزمية قضائية خاضعة لمعايير XAI (الذكاء الاصطناعي القابل للتفسير)، تُوضح بشكل مقروء قانونياً الأوزان والمتغيرات المستخدمة في كل قرار فردي.</p>
+        </div>
+      </li>
+      <li>
+        <div class="rec-num">02</div>
+        <div class="rec-text">
+          <h4>تدقيق مستقل دوري لاختبار الانحياز</h4>
+          <p>هيئات تدقيق مستقلة تُراجع أداء الأنظمة عبر مجموعات سكانية مختلفة، وتُصدر تقارير علنية دورية عن معدلات الخطأ التفاضلية.</p>
+        </div>
+      </li>
+      <li>
+        <div class="rec-num">03</div>
+        <div class="rec-text">
+          <h4>حظر الاستخدام المنفرد كأساس للحكم</h4>
+          <p>لا يجوز استخدام درجة الخطورة الخوارزمية إلا كعنصر استشاري ضمن تقييم قضائي شامل، مع توثيق صريح لأسباب قبول التوصية أو رفضها.</p>
+        </div>
+      </li>
+      <li>
+        <div class="rec-num">04</div>
+        <div class="rec-text">
+          <h4>ضمان حق الطعن في التنبؤات الخوارزمية</h4>
+          <p>تشريعات تضمن للمتهم وفريق دفاعه حق الاطلاع على منطق الخوارزمية والطعن في نتائجها أمام القضاء، كحق إجرائي أصيل.</p>
+        </div>
+      </li>
+      <li>
+        <div class="rec-num">05</div>
+        <div class="rec-text">
+          <h4>تنظيم دولي لمعايير العدالة الخوارزمية</h4>
+          <p>اتفاقيات دولية تضع حداً أدنى من معايير العدالة والشفافية لأنظمة التنبؤ القضائي، تمنع تحولها إلى أدوات للتمييز المُنمذَج.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="conclusion">
+  <div class="container reveal" style="position:relative;z-index:2;">
+    <h2>الخوارزمية ليست محايدة — هي صورة مجتمعنا</h2>
+    <p>
+      عندما نُغذّي الخوارزمية ببيانات تاريخ غير عادل، لا تُصحّح التاريخ — بل تُرسِّخه بكفاءة رقمية.
+      استخدام الذكاء الاصطناعي في القضاء مشروع، لكنه يستلزم رقابةً وشفافيةً وإرادةً سياسيةً حقيقية لمواجهة الانحياز الموروث.
+    </p>
+    <a href="#what" class="cta-btn">ابدأ من البداية</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 · تقرير: الذكاء الاصطناعي والنزاهة القضائية</div>
+  <div style="color:rgba(136,153,170,.5);">
+    مصادر: ProPublica · Stanford Law Review · Harvard Data Privacy Lab · EU AI Act
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Animate bars when visible
+  const chartObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach(b => {
+          const w = b.style.width;
+          b.style.width = '0';
+          requestAnimationFrame(() => { b.style.width = w; });
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.chart-wrap').forEach(el => chartObs.observe(el));
+</script>
+</body>
+</html>
