@@ -1,0 +1,218 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body,div{font-family:'Cairo','Tajawal',system-ui,sans-serif}
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+.wrap{direction:rtl;text-align:right;color:var(--color-text-primary);background:var(--color-background-tertiary);padding-bottom:3rem}
+
+.hero{background:linear-gradient(135deg,#0B1829 0%,#1B3A6B 60%,#0B1829 100%);padding:2.5rem 1.5rem 2rem;text-align:center;color:#F5F9FF}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(201,168,76,.45);border-radius:3px;padding:.3rem .9rem;font-size:.72rem;letter-spacing:2px;color:#C9A84C;margin-bottom:1.2rem}
+.dot{width:6px;height:6px;border-radius:50%;background:#C9A84C;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:900;line-height:1.3;margin-bottom:.8rem;color:#fff}
+.hero h1 em{font-style:normal;color:#E8C76A;border-bottom:2px solid rgba(232,199,106,.35)}
+.hero p{font-size:.9rem;color:#8899AA;max-width:560px;margin:0 auto 1.5rem}
+.stats{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-size:2rem;font-weight:900;color:#E8C76A;display:block}
+.stat-l{font-size:.72rem;color:#8899AA}
+
+.sec{padding:2rem 1.5rem}
+.sec-alt{background:var(--color-background-secondary)}
+.label{font-size:.68rem;letter-spacing:2.5px;color:#C9A84C;text-transform:uppercase;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2)}
+h2{font-size:1.4rem;font-weight:700;margin-bottom:.7rem}
+.lead{font-size:.88rem;color:var(--color-text-secondary);margin-bottom:1.5rem;line-height:1.8}
+
+.def{border-right:3px solid #C9A84C;padding:.9rem 1rem;background:rgba(201,168,76,.06);border-radius:0 6px 6px 0;font-size:.9rem;font-style:italic;color:var(--color-text-primary);margin-bottom:1.2rem}
+.prose{font-size:.85rem;color:var(--color-text-secondary);line-height:1.9;margin-bottom:.9rem}
+
+.cycle{display:flex;flex-direction:column;gap:0;margin-top:1.2rem}
+.cy-box{border-radius:6px;padding:.9rem 1rem;text-align:center;margin:0}
+.cy-box.b1{background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.3)}
+.cy-box.b2{background:rgba(46,134,171,.12);border:1px solid rgba(46,134,171,.3)}
+.cy-box.b3{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25)}
+.cy-box.b4{background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2)}
+.cy-icon{font-size:1.2rem;margin-bottom:.2rem}
+.cy-t{font-size:.88rem;font-weight:700}
+.cy-t.red{color:#E74C3C}.cy-t.blue{color:#2E86AB}.cy-t.gold{color:#C9A84C}.cy-t.redb{color:#E74C3C}
+.cy-s{font-size:.72rem;color:var(--color-text-secondary)}
+.arrow{text-align:center;font-size:1.2rem;color:#C9A84C;padding:.25rem 0}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1.2rem}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-top:3px solid #C9A84C;border-radius:var(--border-radius-lg);padding:1.2rem}
+.card-ic{font-size:1.4rem;margin-bottom:.6rem}
+.card h3{font-size:.9rem;font-weight:700;color:#E8C76A;margin-bottom:.4rem}
+.card p{font-size:.78rem;color:var(--color-text-secondary);line-height:1.8}
+
+.chart-wrap{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-top:1.5rem}
+.ct{font-size:.9rem;font-weight:700;margin-bottom:.2rem}
+.cs{font-size:.72rem;color:var(--color-text-secondary);margin-bottom:1.2rem}
+.bg{margin-bottom:1.1rem}
+.bl{display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem;color:var(--color-text-primary)}
+.bl span:last-child{font-weight:700;color:#C9A84C}
+.bt{height:9px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden}
+.bf{height:100%;border-radius:2px;transition:width 1s ease}
+.bf.hi{background:#E74C3C}.bf.md{background:#E67E22}.bf.lo{background:#27AE60}
+.src{font-size:.68rem;color:var(--color-text-secondary);margin-top:.8rem}
+
+.case-g{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem}
+.cp{border-radius:8px;padding:1.2rem}
+.cp.a{background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.25)}
+.cp.r{background:rgba(26,122,74,.08);border:1px solid rgba(26,122,74,.25)}
+.cp h3{font-size:.88rem;font-weight:700;margin-bottom:.6rem}
+.cp.a h3{color:#E74C3C}.cp.r h3{color:#2ECC71}
+.score{font-size:2.8rem;font-weight:900;margin:.4rem 0}
+.cp.a .score{color:#E74C3C}.cp.r .score{color:#2ECC71}
+.sc-l{font-size:.7rem;color:var(--color-text-secondary);margin-bottom:.7rem}
+.cd{font-size:.78rem;color:var(--color-text-secondary);line-height:1.8}
+.cd strong{color:#E74C3C}
+
+.note{padding:1rem 1.2rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:6px;font-size:.82rem;color:var(--color-text-primary);line-height:1.8;margin-top:1.2rem}
+.note strong{color:#E8C76A}
+
+.imp{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1.2rem}
+.im{display:flex;gap:.9rem;align-items:flex-start;padding:1rem 1.1rem;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg)}
+.im-ic{font-size:1.3rem;min-width:1.8rem}
+.im h4{font-size:.85rem;font-weight:700;color:#E8C76A;margin-bottom:.3rem}
+.im p{font-size:.76rem;color:var(--color-text-secondary);line-height:1.7}
+
+.recs{margin-top:1.5rem;display:flex;flex-direction:column;gap:.9rem}
+.rec{display:flex;gap:1rem;align-items:flex-start;padding:1rem 1.2rem;border-right:4px solid #C9A84C;background:rgba(201,168,76,.04);border-radius:0 6px 6px 0}
+.rn{font-size:1.2rem;font-weight:900;color:rgba(201,168,76,.3);min-width:1.8rem;line-height:1}
+.rt h4{font-size:.87rem;font-weight:700;color:#E8C76A;margin-bottom:.25rem}
+.rt p{font-size:.77rem;color:var(--color-text-secondary);line-height:1.7}
+
+.conc{background:linear-gradient(135deg,#0B1829,#1B3A6B,#0B1829);padding:2.5rem 1.5rem;text-align:center;color:#fff;margin-top:0}
+.conc h2{font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:.8rem}
+.conc p{font-size:.85rem;color:#8899AA;max-width:500px;margin:0 auto 1.5rem;line-height:1.8}
+.btn{display:inline-block;background:#C9A84C;color:#0B1829;font-weight:700;font-size:.88rem;padding:.7rem 2rem;border-radius:3px;cursor:pointer;border:none;font-family:inherit}
+.btn:hover{background:#E8C76A}
+
+footer{background:#060F1A;padding:1.2rem 1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-size:.72rem;color:#8899AA;border-top:1px solid rgba(201,168,76,.1)}
+</style>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow"><span class="dot"></span> بحث وتحليل · الذكاء الاصطناعي والقضاء</div>
+  <h1>حين تُخطئ الخوارزمية<br/>يدفع <em>البشر</em> الثمن</h1>
+  <p>انحياز أنظمة الذكاء الاصطناعي في التنبؤ القضائي يُقوِّض مبادئ العدالة، ويُعيد إنتاج التمييز بلغة الأرقام والكود</p>
+  <div class="stats">
+    <div class="stat"><span class="stat-n">44.9%</span><span class="stat-l">خطأ في تصنيف السود كمخاطرة عالية</span></div>
+    <div class="stat"><span class="stat-n">×2</span><span class="stat-l">تضاعف احتمال الخطأ ضد الأقليات</span></div>
+    <div class="stat"><span class="stat-n">+46</span><span class="stat-l">دولة تستخدم أدوات تنبؤ قضائي</span></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="label">المفهوم</div>
+  <h2>ما هو التنبؤ القضائي الخوارزمي؟</h2>
+  <div class="def">"استخدام خوارزميات الذكاء الاصطناعي لتقييم احتمالية ارتكاب الفرد جريمة مستقبلية أو تكرارها، لمساعدة القضاة في قرارات الإفراج والسجن ومدة العقوبة."</div>
+  <p class="prose">تعتمد المحاكم في دول عديدة على أنظمة آلية مثل COMPAS وPSA وLSI-R لتقييم "درجة خطورة" المتهمين. تُغذَّى هذه الأنظمة ببيانات تاريخية — مكان السكن، السجل الجنائي، الوضع الاجتماعي — ثم تُنتج درجة عددية تُحدد مصير إنسان.</p>
+  <p class="prose">المشكلة الجوهرية: هذه البيانات تحمل في طياتها تحيزات قرون من التمييز المنهجي، فتُعيد الخوارزمية إنتاجها بكفاءة رياضية مُقنِّعة تحت غطاء الموضوعية.</p>
+  <div class="cycle">
+    <div class="cy-box b1"><div class="cy-icon">📊</div><div class="cy-t red">بيانات تاريخية منحازة</div><div class="cy-s">ممارسات شرطية غير متساوية</div></div>
+    <div class="arrow">↓</div>
+    <div class="cy-box b2"><div class="cy-icon">🤖</div><div class="cy-t blue">خوارزمية التعلم الآلي</div><div class="cy-s">تتعلم الأنماط من التاريخ</div></div>
+    <div class="arrow">↓</div>
+    <div class="cy-box b3"><div class="cy-icon">🔢</div><div class="cy-t gold">درجة الخطورة التنبؤية</div><div class="cy-s">1–10 تحدد مصير المتهم</div></div>
+    <div class="arrow">↓</div>
+    <div class="cy-box b4"><div class="cy-icon">⚖️</div><div class="cy-t redb">قرار قضائي منحاز يُعزز التمييز</div><div class="cy-s">يُعاد تغذيته كبيانات جديدة</div></div>
+  </div>
+</div>
+
+<div class="sec sec-alt">
+  <div class="label">التصنيف</div>
+  <h2>أنواع الانحياز الخوارزمي في القضاء</h2>
+  <p class="lead">الانحياز لا يصدر من نقطة واحدة — بل يتراكم عبر مراحل متعددة من دورة حياة النظام.</p>
+  <div class="cards">
+    <div class="card"><div class="card-ic">🗄️</div><h3>انحياز البيانات التاريخية</h3><p>البيانات التدريبية تعكس تفاوتاً تاريخياً في تطبيق القانون، فتتعلم الخوارزمية التمييز كـ"حقيقة إحصائية".</p></div>
+    <div class="card"><div class="card-ic">🔧</div><h3>انحياز التصميم والمتغيرات</h3><p>مكان السكن والمستوى التعليمي بدائل مبطنة للعرق والطبقة الاجتماعية وإن لم تُذكر صراحةً.</p></div>
+    <div class="card"><div class="card-ic">📏</div><h3>انحياز معيار التقييم</h3><p>تعريف "الإعادة للجريمة" يعتمد الاعتقال لا الإدانة، مضخِّماً ظهور المجموعات الأكثر خضوعاً للمراقبة.</p></div>
+    <div class="card"><div class="card-ic">📦</div><h3>انحياز صندوق الأسود</h3><p>غموض المنطق الداخلي يحرم المتهمين من حق الطعن. القضاة أنفسهم لا يعلمون كيف احتُسبت الدرجة.</p></div>
+    <div class="card"><div class="card-ic">🔄</div><h3>الانحياز التأكيدي الحلقي</h3><p>الأحكام الخاطئة تُولِّد بيانات تُدرَّب عليها الجيل التالي من الخوارزميات، مكرِّسةً دوامة انحياز متراكم.</p></div>
+    <div class="card"><div class="card-ic">👨‍⚖️</div><h3>أتمتة التحيز القضائي</h3><p>ميل القضاة لتبني توصيات الخوارزمية أكثر من رفضها، خاصة حين تتسق مع انحيازهم اللاواعي المسبق.</p></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="ct">معدلات الخطأ في التنبؤ — نظام COMPAS</div>
+    <div class="cs">دراسة ProPublica 2016 على 10,000 متهم في فلوريدا</div>
+    <div class="bg"><div class="bl"><span>تصنيف بيض البشر كمخاطرة عالية (خطأ)</span><span>23.5%</span></div><div class="bt"><div class="bf lo" id="b1" style="width:0%"></div></div></div>
+    <div class="bg"><div class="bl"><span>تصنيف السود كمخاطرة عالية (خطأ)</span><span>44.9%</span></div><div class="bt"><div class="bf hi" id="b2" style="width:0%"></div></div></div>
+    <div class="bg"><div class="bl"><span>تصنيف بيض بمخاطرة منخفضة رغم جريمة لاحقة</span><span>47.7%</span></div><div class="bt"><div class="bf md" id="b3" style="width:0%"></div></div></div>
+    <div class="bg"><div class="bl"><span>تصنيف سود بمخاطرة منخفضة رغم جريمة لاحقة</span><span>28.0%</span></div><div class="bt"><div class="bf lo" id="b4" style="width:0%"></div></div></div>
+    <div class="src">المصدر: Angwin et al., ProPublica — "Machine Bias" (2016)</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="label">دراسة حالة</div>
+  <h2>قضية COMPAS: حين قرأت الخوارزمية الجلد لا الجريمة</h2>
+  <p class="lead">المقارنة الأكثر توثيقاً للانحياز الخوارزمي: متهمان، جريمتان متشابهتان، مصيران مختلفان جذرياً.</p>
+  <div class="case-g">
+    <div class="cp a">
+      <h3>⚠ برنسيل — درجة الخطورة</h3>
+      <div class="score">10</div>
+      <div class="sc-l">من 10 — أعلى درجة خطورة</div>
+      <div class="cd">رجل أسود البشرة، اتهم بسرقة دراجات هوائية. صنّفته COMPAS بأعلى درجة ممكنة.<br/><br/><strong>النتيجة الفعلية:</strong> لم يُدَن بأي جريمة عنيفة لاحقة. خسر عاماً في الاحتجاز.</div>
+    </div>
+    <div class="cp r">
+      <h3>✓ باولو — درجة الخطورة</h3>
+      <div class="score">3</div>
+      <div class="sc-l">من 10 — خطورة منخفضة</div>
+      <div class="cd">رجل أبيض البشرة، اتهم بحيازة أسلحة مسروقة. صنّفته COMPAS بخطورة منخفضة.<br/><br/><strong>النتيجة الفعلية:</strong> أُدين لاحقاً بجرائم أشد خطورة وأُودع السجن.</div>
+    </div>
+  </div>
+  <div class="note"><strong>الخلاصة القانونية:</strong> في قضية <em>State v. Loomis</em> (2016)، أيّدت المحكمة العليا في ويسكونسن استخدام COMPAS، لكنها اشترطت ألّا تكون النتيجة السبب الوحيد للحكم. هذا الموقف الملتبس يكشف الفجوة بين السرعة التقنية وبطء التكيّف القانوني.</div>
+</div>
+
+<div class="sec sec-alt">
+  <div class="label">التداعيات</div>
+  <h2>تأثيرات الانحياز على نزاهة المنظومة القضائية</h2>
+  <div class="imp">
+    <div class="im"><div class="im-ic">⚖️</div><div><h4>انتهاك مبدأ المساواة أمام القانون</h4><p>أحكام متفاوتة لجرائم متشابهة بحسب العرق أو المنطقة، مناقضةً صميم العدالة.</p></div></div>
+    <div class="im"><div class="im-ic">🔒</div><div><h4>تقييد حق الدفاع والطعن</h4><p>غموض الخوارزمية يجعل الطعن في نتائجها شبه مستحيل أمام المحكمة.</p></div></div>
+    <div class="im"><div class="im-ic">🔁</div><div><h4>ترسيخ الانحياز الاجتماعي رقمياً</h4><p>كل حكم خاطئ يُولّد بيانات تدريب، محوِّلاً الظلم التاريخي إلى نمط رياضي "محايد".</p></div></div>
+    <div class="im"><div class="im-ic">🏛️</div><div><h4>تآكل الثقة في العدالة</h4><p>حين يشعر المتهم أن كوداً برمجياً حدد مصيره، تتآكل شرعية المنظومة برمتها.</p></div></div>
+    <div class="im"><div class="im-ic">🌍</div><div><h4>التوسع العالمي غير المنضبط</h4><p>أنظمة طُوِّرت في سياق بعينه تُصدَّر دون تكييف محلي، مضاعِفةً الانحياز.</p></div></div>
+    <div class="im"><div class="im-ic">🤝</div><div><h4>إحلال الرقم محل التقدير القضائي</h4><p>الاعتماد على الدرجة الخوارزمية يُضعف الحكمة الإنسانية التي تستوعب الفروق الدقيقة.</p></div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="label">المخرج</div>
+  <h2>نحو ذكاء اصطناعي قضائي عادل</h2>
+  <p class="lead">الحل ليس رفض التقنية، بل حوكمتها بصرامة تضمن خضوعها لقيم العدالة لا تحكّمها فيها.</p>
+  <div class="recs">
+    <div class="rec"><div class="rn">01</div><div class="rt"><h4>الشفافية الإلزامية والقابلية للتفسير</h4><p>معايير XAI تُوضح الأوزان والمتغيرات في كل قرار فردي بصيغة مقروءة قانونياً.</p></div></div>
+    <div class="rec"><div class="rn">02</div><div class="rt"><h4>تدقيق مستقل دوري لاختبار الانحياز</h4><p>هيئات تُراجع الأداء عبر مجموعات سكانية مختلفة وتُصدر تقارير علنية عن معدلات الخطأ التفاضلية.</p></div></div>
+    <div class="rec"><div class="rn">03</div><div class="rt"><h4>حظر الاستخدام المنفرد كأساس للحكم</h4><p>درجة الخطورة أداة استشارية ضمن تقييم قضائي شامل، مع توثيق صريح لأسباب قبول التوصية أو رفضها.</p></div></div>
+    <div class="rec"><div class="rn">04</div><div class="rt"><h4>ضمان حق الطعن في التنبؤات الخوارزمية</h4><p>تشريعات تضمن للمتهم وفريق دفاعه الاطلاع على منطق الخوارزمية والطعن فيها كحق إجرائي أصيل.</p></div></div>
+    <div class="rec"><div class="rn">05</div><div class="rt"><h4>تنظيم دولي لمعايير العدالة الخوارزمية</h4><p>اتفاقيات تضع حداً أدنى من معايير الشفافية والعدالة لأنظمة التنبؤ القضائي عالمياً.</p></div></div>
+  </div>
+</div>
+
+<div class="conc">
+  <h2>الخوارزمية ليست محايدة — هي صورة مجتمعنا</h2>
+  <p>عندما نُغذّي الخوارزمية ببيانات تاريخ غير عادل، لا تُصحّح التاريخ — بل تُرسِّخه بكفاءة رقمية. استخدامها في القضاء مشروع، لكنه يستلزم رقابةً وشفافيةً وإرادةً سياسيةً حقيقية.</p>
+  <button class="btn" onclick="sendPrompt('أريد مزيداً من التفاصيل عن قضية COMPAS والتحديات القانونية لمواجهة الانحياز الخوارزمي')">استفسر أكثر ↗</button>
+</div>
+
+<footer>
+  <div>تقرير: الذكاء الاصطناعي والنزاهة القضائية · 2025</div>
+  <div>مصادر: ProPublica · Stanford Law Review · EU AI Act</div>
+</footer>
+
+</div>
+
+<script>
+setTimeout(()=>{
+  const bars=[['b1',23.5],['b2',44.9],['b3',47.7],['b4',28]];
+  bars.forEach(([id,w])=>{
+    const el=document.getElementById(id);
+    if(el) el.style.width=w+'%';
+  });
+},300);
+</script>
